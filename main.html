@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="styles.css">
+    <title>Grounding Protection Application</title>
+    <script src="script.js"></script>
+</head>
+<body>
+    <nav id="navbar">
+        <header>Grounding Protection</header>
+        <ul>
+            <li><a href="#conductor_size">Conductor Size</a></li>
+            <li><a href="#">Earth Grid Resistance</a></li>
+            <li><a href="#">Derating Factor</a></li>                
+            <li><a href="#">Step Voltage</a></li>                
+            <li><a href="#">Touch Voltage</a></li>
+            <li><a href="#">Ground Potential Rise</a></li>                
+            <li><a href="#">Mesh Voltage</a></li>                
+        </ul>
+    </nav>
+
+    <main>
+        <section id="conductor_size">
+            <div class="main-container">
+                <div class="form-container-input">
+                    <h3>Input Values</h3>
+                    
+                    <div class="form-group">
+                        <label for="material">Material</label>
+                        <select id="material" onchange="updateInputs()">
+                            <option value="">--Select Material--</option>
+                            <script>
+                                for (let key in materialData) {
+                                    document.write(`<option value="${key}">${key}</option>`);
+                                }
+                            </script>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Duration of current</label>
+                            <div class="small-input">
+                                <input type="text" id="t_current" placeholder="tc">
+                                <span>sec</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>RMS current</label>
+                            <div class="small-input">
+                                <input type="text" id="rms_current" placeholder="I">
+                                <span>kA</span>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Ambient temperature</label>
+                            <div class="small-input">
+                                <input type="text" id="ta" placeholder="Ta">
+                                <span>°C</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-container-output">
+                    <h3>Output Values</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="tr">Resistivity of conductor material</label>
+                            <div class="small-input">
+                                <input type="text" class="property-input" placeholder="ar">
+                                <span>Ohm-m</span>
+                            </div>
+                        </div>
+                
+                        <div class="form-group">
+                            <label>1/ao or 1/ar-Tr</label>
+                            <div class="small-input">
+                                <input type="text" class="property-input" placeholder="Ko">
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="tr">Max. allowable temperature</label>
+                            <div class="small-input">
+                                <input type="text" class="property-input" placeholder="Tm">
+                                <span>°C</span>
+                            </div>
+                        </div>
+                                        
+                        <div class="form-group">
+                            <label>Thermal co-efficient of<br>resistivity at reference temperature</label>
+                            <div class="small-input">
+                                <input type="text" class="property-input" placeholder="pr">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Thermal capacity<br>per unit valume</label>
+                            <div class="small-input">
+                                <input type="text" class="property-input" placeholder="TCAP">
+                                <span>J/cm<sup>3</sup>°C
+                                </span>
+                            </div>
+                        </div>
+                
+                        <div class="form-group">
+                            <label>Conductor cross section</label>
+                            <div class="small-input">
+                                <input type="text" id="dia" placeholder="Amm²">
+                                <span>mm<sup>2</sup></span>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Diameter grid conductor</label>
+                            <div class="small-input">
+                                <input type="text" id="diam" placeholder="d">
+                                <span>m</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="small-input">
+                                <button onclick="calculateSize()">Calculate Conductor Size</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
