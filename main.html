@@ -2,26 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>Grounding Protection Application</title>
     <script src="script.js"></script>
 </head>
 <body>
     <nav id="navbar">
-        <header>Grounding Protection</header>
+        <header>Grounding Protection System</header>
+        <h4>-- IEEE 80 2000 --</h4>
         <ul>
-            <li><a href="#conductor_size">Conductor Size</a></li>
-            <li><a href="#">Earth Grid Resistance</a></li>
-            <li><a href="#">Derating Factor</a></li>                
-            <li><a href="#">Step Voltage</a></li>                
-            <li><a href="#">Touch Voltage</a></li>
-            <li><a href="#">Ground Potential Rise</a></li>                
-            <li><a href="#">Mesh Voltage</a></li>                
+            <li><a href="#" onclick="showSection('conductor_size')">Conductor Size</a></li>
+            <li><a href="#" onclick="showSection('earth_grid_resistance')">Earth Grid Resistance</a></li>
+            <li><a href="#" onclick="showSection('grid_current_and_GPR')">Maximum Grid Current & Ground Potential Rise</a></li>                
+            <li><a href="#" onclick="showSection('mesh_voltage')">Mesh Voltage</a></li> 
+            <li><a href="#" onclick="showSection('step_voltage')">Step Voltage</a></li>                       
         </ul>
     </nav>
 
     <main>
-        <section id="conductor_size">
+        <section id="conductor_size" class="active">
             <div class="main-container">
                 <div class="form-container-input">
                     <h3>Input Values</h3>
@@ -135,6 +135,539 @@
                         <div class="form-group">
                             <div class="small-input">
                                 <button onclick="calculateSize()">Calculate Conductor Size</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="earth_grid_resistance">
+            <div class="main-container">
+                <div class="form-container-input">
+                    <h3>Input Values</h3><br>
+                    <h3>Grid Parameters</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Preliminary Layout Grid</label>
+                            <div class="small-input">
+                                <input type="text" id="l_layout" placeholder="Length">
+                                <span>m</span>
+                            </div>
+                        </div>
+    
+                        <div class="form-group">
+                            <label></label>
+                            <div class="small-input">
+                                <input type="text" id="b_layout" placeholder="Breadth">
+                                <span>m</span>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Conductor Spacing</label>
+                            <div class="small-input">
+                                <input type="number" id="c_spacing" min="1">
+                                <span>m</span>
+                            </div>
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Depth Grid Burial</label>
+                            <div class="small-input">
+                                <input type="number" max="1" id="d_burial">
+                                <span>m</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Soil Resistivity</label>
+                            <div class="small-input">
+                                <input type="number" id="soil_res" min="1">
+                                <span>Ohm-m</span>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <h3> Rod Parameters</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Length of Ground Rod</label>
+                            <div class="small-input">
+                                <input type="number" id="l_rods" min="1">
+                                <span>m</span>
+                            </div>
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Number of Ground Rod</label>
+                            <div class="small-input">
+                                <input type="number" id="n_rods" min="1">
+                                <span>nos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-container-output">
+                    <h3>Output Values</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="tr">Number of Parallel<br>Conductor</label>
+                            <div class="small-input">
+                                <input type="text" id="n_conductor" placeholder="n">
+                                <span>nos</span>
+                            </div>
+                        </div>
+                
+                        <div class="form-group">
+                            <label>Length of Conductor<br>Across Perimeter</label>
+                            <div class="small-input">
+                                <input type="text" id="l_perimeter">
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Total Length Ground<br>Rod</label>
+                            <div class="small-input">
+                                <input type="text" id="total_rods">
+                                <span>nos</span>
+                            </div>
+                        </div>
+                                        
+                        <div class="form-group">
+                            <label>Total Length Buried<br>Conductor</label>
+                            <div class="small-input">
+                                <input type="text" id="total_buried_conductor">
+                                <span>m</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Max. Length Conductor</label>
+                            <div class="small-input">
+                                <input type="text" id="c_length_x">
+                                <span>in X - m
+                                </span>
+                            </div>
+                        </div>
+                
+                        <div class="form-group">
+                            <label></label>
+                            <div class="small-input">
+                                <input type="text" id="c_length_y">
+                                <span>in Y - m
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Total Length Buried<br>Conductor & Rod</label>
+                            <div class="small-input">
+                                <input type="text" id="total_buried_con_rod">
+                                <span>m</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Area of The Grid</label>
+                            <div class="small-input">
+                                <input type="text" id="a_grid">
+                                <span>m<sup>2</sup></span>
+                                </span>
+                            </div>
+                        </div>
+                
+                        <div class="form-group">
+                            <label>Grid Resistance</label>
+                            <div class="small-input">
+                                <input type="text" id="grid_resistance">
+                                <span>Ohm
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <div class="small-input">
+                                <button onclick="calculateResistance()">Calculate Grid Resistance</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="grid_current_and_GPR">
+            <div class="main-container">
+                <div class="form-container-input">
+                    <h3>Maximum Grid Current</h3>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Maximum Grid Current</label>
+                            <div class="small-input">
+                                <input type="text" id="grid_current">
+                                <span>A</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Decrement Factor</label>
+                            <div class="small-input">
+                                <input type="text" id="df">
+                                <span>A</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Total Maximum Grid Current</label>
+                            <div class="small-input">
+                                <input type="text" id="m_gridcurrent">
+                                <span>A</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="small-input">
+                                <button onclick="calculateGridcurrent()">Calculate Grid Current</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-container-output">
+                    <h3>Ground Potential Rise</h3>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Total Maximum Grid Current</label>
+                            <div class="small-input">
+                                <input type="text" id="max_grid_current">
+                                <span>A</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Grid Resistance</label>
+                            <div class="small-input">
+                                <input type="text" id="grid_resistance_output">
+                                <span>Ohm</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Ground Potential Rise</label>
+                            <div class="small-input">
+                                <input type="text" id="gpr">
+                                <span>Ohm</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="small-input">
+                                <button onclick="calculateGPR()">Calculate Ground Potential Rise</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mesh_voltage">
+            <div class="main-container">
+                <div class="form-container-input">
+                    <h3>Input Values</h3>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>nb</label>
+                            <div class="small-input">
+                                <input type="text" id="nb">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>nc</label>
+                            <div class="small-input">
+                                <input type="text" id="nc">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>nd</label>
+                            <div class="small-input">
+                                <input type="text" id="nd">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Reference Depth Grid</label>
+                            <div class="small-input">
+                                <input type="text" id="ho" placeholder="ho">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Depth Ground Grid Conductor</label>
+                            <div class="small-input">
+                                <input type="text" id="h" placeholder="h">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-container-output">
+                    <h3>Output Values</h3>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>na</label>
+                            <div class="small-input">
+                                <input type="text" id="na">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>n</label>
+                            <div class="small-input">
+                                <input type="text" id="n">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Ki</label>
+                            <div class="small-input">
+                                <input type="text" id="ki">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Kii</label>
+                            <div class="small-input">
+                                <input type="text" id="kii">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Kh</label>
+                            <div class="small-input">
+                                <input type="text" id="kh">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Km</label>
+                            <div class="small-input">
+                                <input type="text" id="km">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Mesh Voltage</label>
+                            <div class="small-input">
+                                <input type="text" id="e_mesh">
+                                <span>Volt</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="small-input">
+                                <button onclick="calculateMesh()">Calculate Mesh Voltage</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-container-input">
+                    <h3>Voltage Touch 70</h3>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Surface Layer Derating Factor</label>
+                            <div class="small-input">
+                                <input type="text" id="Cs" placeholder="Cs">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Gravel Resistivity</label>
+                            <div class="small-input">
+                                <input type="text" id="Ps" placeholder="Ps">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Duration of current</label>
+                            <div class="small-input">
+                                <input type="text" id="t" placeholder="sec">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Voltage Touch 70</label>
+                            <div class="small-input">
+                                <input type="text" id="etouch70">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <p id="etouch70_result" style="font-weight: bold; color: #444;"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="step_voltage">
+            <div class="main-container">
+                <div class="form-container-input">
+                    <h3>Step Voltage Design</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Depth Burial</label>
+                            <div class="small-input">
+                                <input type="text" id="h">
+                                <span>meter</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Number of Parallel Conductor</label>
+                            <div class="small-input">
+                                <input type="text" id="parallel_conductor">
+                                <span>nos</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Conductor Spacing</label>
+                            <div class="small-input">
+                                <input type="text" id="c_spacing">
+                                <span>meter</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ks</label>
+                            <div class="small-input">
+                                <input type="text" id="ks">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Ki</label>
+                            <div class="small-input">
+                                <input type="text" id="ki">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Step Voltage</label>
+                            <div class="small-input">
+                                <input type="text" id="step_voltage">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-container-output">
+                    <h3>Step Voltage 70</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Depth Burial</label>
+                            <div class="small-input">
+                                <input type="text" id="h">
+                                <span>meter</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Number of Parallel Conductor</label>
+                            <div class="small-input">
+                                <input type="text" id="parallel_conductor">
+                                <span>nos</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Conductor Spacing</label>
+                            <div class="small-input">
+                                <input type="text" id="c_spacing">
+                                <span>meter</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Number of Parallel Conductor</label>
+                            <div class="small-input">
+                                <input type="text" id="parallel_conductor">
+                                <span>nos</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Ks</label>
+                            <div class="small-input">
+                                <input type="text" id="ks">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ki</label>
+                            <div class="small-input">
+                                <input type="text" id="ki">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Step Voltage</label>
+                            <div class="small-input">
+                                <input type="text" id="step_voltage">
                             </div>
                         </div>
                     </div>

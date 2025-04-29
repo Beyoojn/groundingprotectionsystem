@@ -1,6 +1,8 @@
 body {
     margin: 40px;
     font-family: Arial, Helvetica, sans-serif;
+    transform: scale(0.9);
+    transform-origin: top center;
 }
 
 #navbar {
@@ -81,7 +83,6 @@ body {
 
 label {
     font-size: 20px;
-    font-weight: bold;
     max-width: 300px; /* Membatasi panjang label agar tidak terlalu lebar */
     min-height: 70px; /* Menyamakan tinggi label */
     display: flex;
@@ -106,15 +107,14 @@ label {
 
 .small-input span {
     font-size: 16px;
-    font-weight: bold;
 }
 
 .small-input button {
     padding: 12px;
-    margin-left: 7.5px;
     border-radius: 50px;
     border: 1px solid black;
     font-size: 20px;
+    margin-top: 70px;
 }
 
 .form-container-output {
@@ -127,8 +127,16 @@ label {
 
 .main-container {
     display: flex;
-    justify-content: space-between; /* Pisahkan input di kiri, output di kanan */
+    justify-content: center; 
     align-items: flex-start;
     gap: 40px; /* Jarak antara input dan output */
     padding: 30px 200px; /* Padding dari sisi kiri dan kanan */
+}
+
+section {
+    display: none;
+}
+
+.active {
+    display: block;
 }
