@@ -100,10 +100,11 @@ function calculateResistance() {
         document.getElementById("total_buried_con_rod").value = total_buried_Con_rod.toFixed(2);
         let c_length_x = l_layout;
         document.getElementById("c_length_x").value = c_length_x.toFixed(2);
-        let c_length_y = b_layout;
+        let c_length_y = b_layout; 
         document.getElementById("c_length_y").value = c_length_y.toFixed(2);
         let l_perimeter = Math.ceil(l_layout * 4);
         document.getElementById("l_perimeter").value = l_perimeter.toFixed(2);
+        
         let a_grid = (l_layout * b_layout);
         document.getElementById("a_grid").value = a_grid.toFixed(2);
         let grid_resistance = soil_res * ((1 / total_buried_Con_rod) + (1 / (Math.sqrt(20 * a_grid))) * (1 + (1 / (1 + (d_burial * (Math.sqrt(20 / a_grid)))))));
@@ -115,10 +116,7 @@ function calculateResistance() {
 }
 
 function calculateGridcurrent() {
-    let rms_current = parseFloat(document.getElementById("rms_current").value);
-    let grid_current = rms_current;
-    document.getElementById("grid_current").value = grid_current.toFixed(2);
-
+    let grid_current = parseFloat(document.getElementById("grid_current").value);
     let df = parseFloat(document.getElementById("df").value);
 
     if (df > 0) {
@@ -164,7 +162,7 @@ function calculateMesh() {
     let c_length_x = parseFloat(document.getElementById("c_length_x").value);
 
     if (nb > 0 && nc > 0 && nd > 0 && h > 0 && ho > 0) {
-        let na = 2 * l_perimeter / total_buried_conductor;
+        let na = 2 * total_buried_conductor / l_perimeter;
         document.getElementById("na").value = na.toFixed(2);
 
         let n = na * nb * nc * nd;
@@ -173,7 +171,7 @@ function calculateMesh() {
         let ki = 0.644 + 0.148 * n;
         document.getElementById("ki").value = ki.toFixed(2);
 
-        let kii = 1 / Math.pow(2 * l_layout, 2 / l_layout);
+        let kii = 1 / Math.pow(2 * n_conductor, 2 / n_conductor);
         document.getElementById("kii").value = kii.toFixed(2);
 
         let kh = Math.sqrt(1 + (h / ho));
@@ -234,8 +232,14 @@ function calculateVoltageTouch70() {
 }
 
 function calculateVoltageStep() {
-    const h = parseFloat(document.getElementById("d_burial").value) || 0;
+    const h_step = parseFloat(document.getElementById("d_burial").value) || 0;
     const parallel_conductor = parseFloat(document.getElementById("parallel_conductor").value) || 0;
-    const c_spacing = parseFloat(document.getElementById("c_spacing").value) || 0;
-    
+    const c_spacing_step = parseFloat(document.getElementById("c_spacing").value) || 0;
+    const ks = parseFloat(document.getElementById("ks").value) || 0;
+    const ki = parseFloat(document.getElementById("ki").value) || 0;
+
+    const step_voltage = (1 / 3,14 * 
+        ((1 / (2 * h_step)) + 
+        (1 / (c_spacing_step+h_step)) + 
+        ((1 - Math.POWER(0,5,parallel_conductor - 2)) / parallel_conductor)))
 }
